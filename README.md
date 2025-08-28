@@ -244,16 +244,16 @@ echo $feeds;
 
 PHP >= 8.0
 
-Laravel 9, 10, 11, or 12
+Laravel 9, 10, 11 or 12
 
 NYTimes API Key (Free – Get one here (https://katherineoelsner.com/))
-
-## 📜 License
-
-This package is open-sourced software licensed under the MIT license.
-
 
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to open an issue or submit a pull request to improve this package.
+
+
+## 📜 License
+
+This package is open-sourced software licensed under the MIT license.
 
