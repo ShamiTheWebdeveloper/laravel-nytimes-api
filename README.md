@@ -41,16 +41,16 @@ Fetch the latest news, articles, and top stories directly from NYTimes with simp
 
 ## 📝 Usage 
 
-Retrieve Data From API
+Retrive Data From API
 ```php
 NYTimes::searchArticle('Sports', now()->lastWeekDay, now())->get();
-// use get() to return response in array
+// use get() to get response in array
 
 NYTimes::searchArticle('Sports', now()->lastWeekDay, now())->json();
-// use json() to return response in array
+// use json() to get response in json
 ```
 
-Get a full response from GuzzleHttp
+Get full response from GuzzleHttp
 ```php
 $articlesFullResponse=NYTimes::searchArticle('Sports', '2024-04-01', now())->fullResponse();
 dd($articlesFullResponse);
@@ -78,7 +78,78 @@ foreach ($articles['response']['docs'] as $article)
   echo $article['web_url'].'<br>';
 }
 ```
+For Archive:
+```php
+/*
+Parameters
+$month (int required), $year (int required)
+*/
 
+$archives= NYTimes::archive(5,2025)->get();
+
+foreach ($archives['response']['docs'] as $archive) {
+    echo $archive['abstract'].'<br>';
+    echo $archive['section_name'].'<br>';
+    echo $archive['word_count'].'<br>';
+}
+
+```
+For Most Popular:
+```php
+/*
+Parameters
+$type (string required), $period (int), $shareType (string)
+*/
+
+$populars= NYTimes::mostPopular('emailed',7)->get();
+
+foreach ($populars['results'] as $popular) {
+    echo $popular['section'].'<br>';
+    echo $popular['title'].'<br>';
+    echo $popular['abstract'].'<br>';
+}
+```
+For Books (Overview)
+```php
+/*
+Parameters
+$publishedDate (string)
+*/
+
+$books=NYTimes::bookOverview('2024-05-04')->get();
+
+echo $books['results']['published_date'].'<br>';
+echo '<h3>Books:</h3>';
+
+foreach ($books['results']['lists'] as $booklist)
+{
+  echo $booklist['list_name'].'<br>';
+
+  foreach ($booklist['books'] as $book)
+  {
+    echo $book['title'].'<br>';
+    echo $book['author'].'<br>';
+  }
+}
+```
+For Books (List)
+```php
+/*
+Parameters
+$list (string required) ,$date (string)
+*/
+
+$books=NYTimes::bookList('series-books')->get();
+
+echo '<h2>'.$books['results']['list_name'].'</h2>';
+
+foreach ($books['results']['books'] as $book)
+{
+    echo $book['title'].'<br>';
+    echo $book['author'].'<br>';
+}
+
+```
 
 ## 📜 License
 
