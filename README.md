@@ -150,6 +150,95 @@ foreach ($books['results']['books'] as $book)
 }
 
 ```
+For Times Newswire
+```php
+
+/*
+Parameters
+$source (string required) ,$section (string) ,$limit (int), $offset (int)
+*/
+
+$news=NYTimes::timesNewswire('nyt','all',30,20)->get();
+
+foreach ($news['results'] as $new)
+{
+    echo $new['title'].'<br>';
+    echo $new['abstract'].'<br>';
+    echo $new['url'].'<br>';
+}
+```
+For Times Newswire (Get News By URL)
+```php
+/*
+Parameters
+$url (string),
+*/
+
+$url='https://www.nytimes.com/2025/08/25/arts/dance/kennedy-center-stephen-nakagawa.html';
+
+$news=NYTimes::timesNewswireUrl($url)->get();
+
+foreach ($news['results'] as $new)
+{
+    echo $new['title'].'<br>';
+    echo $new['abstract'].'<br>';
+}
+```
+
+Get News Sections
+```php
+$sections=NYTimes::newsSectionList()->get();
+
+foreach ($sections['results'] as $section)
+{
+    echo $section['section'].'<br>';
+    echo $section['display_name'].'<br>';
+}
+```
+For Top Stories
+```php
+/*
+Parameters
+$sections (string),
+*/
+
+$stories=NYTimes::topStories('food')->get();
+
+foreach ($stories['results'] as $story)
+{
+    echo $story['title'].'<br>';
+    echo $story['abstract'].'<br>';
+    echo $story['url'].'<br>';
+}
+```
+
+For RSS
+```php
+/*
+Parameters
+$section (string),
+*/
+
+$feeds=NYTimes::rssFeed('Automobiles')->get();
+
+echo $feeds['channel']['title'].'<br>';
+
+foreach ($feeds['channel']['item'] as $feed)
+{
+    echo $feed['title'].'<br>';
+    echo $feed['link'].'<br>';
+    echo $feed['description'].'<br>';
+}
+```
+
+```php
+// returns data in XML (toXML() Only valid for RSS Feed)
+$feeds=NYTimes::rssFeed('Automobiles')->toXML();
+header('Content-type: application/xml');
+echo $feeds;
+```
+
+
 
 ## 📜 License
 
