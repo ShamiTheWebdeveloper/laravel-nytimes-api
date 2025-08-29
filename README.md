@@ -34,6 +34,30 @@ Fetch the latest news, articles, and top stories directly from NYTimes with simp
 
 `NYTIMES_API_KEY=your_api_key_here`
 
+3. Add this to the service provider:
+```php
+ShamiTheWebdeveloper\NYTimes\NYTimesServiceProvider::class
+```
+4. If you want to use the NYTimes directly in view files (Optional):
+
+Add this to app/config.php (For Laravel 8,9, and 10)
+```php
+'aliases' => [
+        'NYTimes' => \ShamiTheWebdeveloper\NYTimes\Facades\NYTimesFacade::class,
+    ]
+```
+For Laravel 11 or greater, add this to app/Providers/AppServiceProvider.php in register() function
+```php
+public function register(): void
+    {
+        $loader = AliasLoader::getInstance();
+        $loader->alias('NYTimes', NYTimesFacade::class);
+    }
+```
+
+
+
+
 
 
 
