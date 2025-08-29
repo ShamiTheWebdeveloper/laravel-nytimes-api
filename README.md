@@ -13,7 +13,7 @@ Fetch the latest news, articles, and top stories directly from NYTimes with simp
 - Supports Top Stories, Most Popular, and Article Search endpoints
 - Built-in Facade (NYTimes) and helper methods
 - Powered by GuzzleHTTP for secure API requests
-- Compatible with Laravel 9, 10, 11 and 12
+- Compatible with Laravel 8, 9, 10, 11, and 12
 
 
 ## 📦 Installation
