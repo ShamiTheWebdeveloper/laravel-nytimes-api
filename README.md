@@ -19,7 +19,7 @@ Fetch the latest news, articles, and top stories directly from NYTimes with simp
 ## 📦 Installation
 
 ```bash
-  composer require shamithewebdeveloper/laravel-nytimes
+  composer require shamithewebdeveloper/laravel-nytimes-api
 ```
 
 ## 🔧 Configuration
