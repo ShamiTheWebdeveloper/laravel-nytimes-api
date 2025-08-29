@@ -225,6 +225,11 @@ class NYTimes
     public static function get()
     {
         self::checkResponse();
+        if (self::$baseURL==self::$rssFeedBaseURL) {
+            $xml = simplexml_load_string(self::$response->body());
+            return json_decode(json_encode($xml), true);
+        }
+        self::checkResponse();
         return self::$response->json();
     }
 
@@ -234,20 +239,11 @@ class NYTimes
     public static function json()
     {
         self::checkResponse();
+        if (self::$baseURL==self::$rssFeedBaseURL) {
+            $xml = simplexml_load_string(self::$response->body());
+            return json_encode($xml);
+        }
         return json_encode(self::$response->json());
-    }
-
-    /**
-     * @throws Exception
-     */
-    public static function XMLtoArray(){
-
-        if (self::$baseURL!=self::$rssFeedBaseURL)
-            self::exception('XMLtoArray() function only valid for RSS API');
-
-        self::checkResponse();
-        $xml = simplexml_load_string(self::$response->body());
-        return json_decode(json_encode($xml), true);
     }
 
     /**
@@ -259,8 +255,7 @@ class NYTimes
             self::exception('toXML() function only valid for RSS API');
 
         self::checkResponse();
-        return response(self::$response->body(), 200)
-            ->header('Content-Type', 'application/xml');
+        return self::$response->body();
     }
 
     /**
@@ -284,25 +279,26 @@ class NYTimes
         return self::$response->effectiveUri()->__toString();
     }
 
-    /**
-     * @throws Exception
-     */
     private static function sendRequest($url, array $params=[])
     {
         $params['api-key'] = config('services.nytimes.api_key', '');
         if (empty($params['api-key']))
-            self::exception('You must set API key');
+            self::exception('You must set NYTimes API key');
         self::$response= Http::get($url, $params);
     }
 
     /**
      * @throws Exception
      */
-    private static function checkResponse(): void
+    private static function checkResponse()
     {
         if (self::$response->failed()){
-            $error=self::$response->body();
-            self::exception($error);
+            return ['error' => [
+                'status' => self::$response->status(),
+                'message' => json_decode(self::$response->body()),
+                'reason' => self::$response->reason(),
+                'request_url' => self::requestUrl(),
+            ]];
         }
     }
 
