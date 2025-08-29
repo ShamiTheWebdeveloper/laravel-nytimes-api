@@ -242,9 +242,9 @@ echo $feeds;
 
 ## 📌 Requirements
 
-PHP >= 8.0
+PHP >= 7.4
 
-Laravel 9, 10, 11 or 12
+Laravel 8, 9, 10, 11 or 12
 
 NYTimes API Key (Free – Get one here (https://developer.nytimes.com)
 
