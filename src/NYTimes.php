@@ -281,7 +281,7 @@ class NYTimes
 
     private static function sendRequest($url, array $params=[])
     {
-        $params['api-key'] = config('services.nytimes.api_key', '');
+        $params['api-key'] = config('nytimes.api_key', '');
         if (empty($params['api-key']))
             self::exception('You must set NYTimes API key');
         self::$response= Http::get($url, $params);

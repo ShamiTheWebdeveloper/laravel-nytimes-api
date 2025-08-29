@@ -10,10 +10,16 @@ class NYTimesServiceProvider extends ServiceProvider
         $this->app->singleton('nytimes', function ($app) {
             return new NYTimes(); // your main class
         });
+        $this->mergeConfigFrom(
+            __DIR__ . '/config/nytimes.php',
+            'nytimes'
+        );
     }
 
     public function boot()
     {
-        //
+        $this->publishes([
+            __DIR__ . '/config/nytimes.php' => config_path('nytimes.php'),
+        ], 'nytimes-config');
     }
 }
