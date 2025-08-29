@@ -48,6 +48,7 @@ Add this to app/config.php (For Laravel 8,9, and 10)
 ```
 For Laravel 11 or greater, add this to app/Providers/AppServiceProvider.php in register() function
 ```php
+use ShamiTheWebdeveloper\NYTimes\Facades\NYTimesFacade;
 public function register(): void
     {
         $loader = AliasLoader::getInstance();
@@ -55,18 +56,12 @@ public function register(): void
     }
 ```
 
-
-
-
-
-
-
-
-
 ## 📝 Usage 
 
 Retrive Data From API
 ```php
+use ShamiTheWebdeveloper\NYTimes\NYTimes;
+
 NYTimes::searchArticle('Sports', now()->lastWeekDay, now())->get();
 // use get() to get response in array
 
@@ -74,7 +69,7 @@ NYTimes::searchArticle('Sports', now()->lastWeekDay, now())->json();
 // use json() to get response in json
 ```
 
-Get full response from GuzzleHttp
+Get a full response from GuzzleHttp
 ```php
 $articlesFullResponse=NYTimes::searchArticle('Sports', '2024-04-01', now())->fullResponse();
 dd($articlesFullResponse);
@@ -84,7 +79,10 @@ Get API Request URL
 $articleURL=NYTimes::searchArticle('Sports', '2024-04-01', now())->requestURL();
 echo $articleURL;
 ```
-
+For the views
+```php
+@dd(NYTimes::newsSectionList()->get())
+```
 ### Examples
 
 For Article Search:
